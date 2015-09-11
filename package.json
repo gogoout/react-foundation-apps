@@ -1,5 +1,5 @@
 {
-  "name": "react-foundation-apps",
+  "name": "local-react-foundation-apps",
   "version": "0.7.0",
   "description": "'React port of foundation-apps'",
   "main": "index.js",

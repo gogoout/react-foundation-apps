@@ -82,16 +82,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  displayName: 'Accordion',
 
 	  getInitialState: function getInitialState() {
-	    return { sections: [] };
-	  },
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      autoOpen: true,
-	      multiOpen: false,
-	      collapsible: false
-	    };
-	  },
-	  componentWillMount: function componentWillMount() {
+	    // due to the bug:[#4461](https://github.com/facebook/react/issues/4461)
+	    // move setState in the `componentWillMount` to the `getInitialState`
 	    var sections = [];
 	    React.Children.forEach(this.props.children, function (child, index) {
 	      sections.push({ active: false });
@@ -99,7 +91,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (this.props.autoOpen) {
 	      sections[0].active = true;
 	    }
-	    this.setState({ sections: sections });
+	    return { sections: sections };
+	  },
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      autoOpen: true,
+	      multiOpen: false,
+	      collapsible: false
+	    };
 	  },
 	  select: function select(selectSection) {
 	    var sections = this.state.sections;
