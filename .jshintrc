@@ -1,6 +1,5 @@
 {
   "esnext": true,
-  "strict": true,
   "globalstrict": true,
   "node": true,
   "mocha": true,

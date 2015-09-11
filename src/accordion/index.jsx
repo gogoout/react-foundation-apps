@@ -3,16 +3,8 @@ var cloneWithProps = require('react/lib/cloneWithProps');
 
 var Accordion = React.createClass({
   getInitialState: function () {
-    return { sections: [] };
-  },
-  getDefaultProps: function () {
-    return { 
-      autoOpen: true,
-      multiOpen: false,
-      collapsible: false
-    };
-  },
-  componentWillMount: function () {
+  // due to the bug:[#4461](https://github.com/facebook/react/issues/4461)
+  // move setState in the `componentWillMount` to the `getInitialState`
     var sections = [];
     React.Children.forEach(this.props.children, function (child, index) {
       sections.push({active: false});
@@ -20,7 +12,14 @@ var Accordion = React.createClass({
     if (this.props.autoOpen) {
       sections[0].active = true;
     }
-    this.setState({sections: sections});
+    return{sections: sections};
+  },
+  getDefaultProps: function () {
+    return {
+      autoOpen: true,
+      multiOpen: false,
+      collapsible: false
+    };
   },
   select: function (selectSection) {
     var sections = this.state.sections;
