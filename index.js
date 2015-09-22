@@ -10,4 +10,5 @@ module.exports = {
   Popup: require('./lib/popup'),
   Tabs: require('./lib/tabs'),
   Trigger: require('./lib/trigger'),
+
 };
