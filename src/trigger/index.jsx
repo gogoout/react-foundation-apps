@@ -24,7 +24,10 @@ var Trigger = React.createClass({
         if(tempElement.nodeName == 'BODY') {
           parentElement = '';
         }
-        if(typeof tempElement.getAttribute('data-closable') !== 'undefined' && tempElement.getAttribute('data-closable') !== false) {
+        // according to the w3c. If the given attribute does not exist, the value returned will either be null or ""
+        // and typeof null return 'object' in the standard
+//        if (typeof tempElement.getAttribute('data-closable') != 'undefined' && tempElement.getAttribute('data-closable') !== false) {
+        if (tempElement.getAttribute('data-closable')!=null && tempElement.getAttribute('data-closable')!=='' && tempElement.getAttribute('data-closable')!==false) {
           parentElement = tempElement;
         }
 

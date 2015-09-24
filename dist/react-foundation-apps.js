@@ -66,6 +66,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  Popup: __webpack_require__(41),
 	  Tabs: __webpack_require__(43),
 	  Trigger: __webpack_require__(45),
+
 	};
 
 
@@ -2183,6 +2184,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    e.preventDefault();
 	    e.stopPropagation();
 	  },
+	  renderChildren: function renderChildren() {
+	    if (this.state.open) {
+	      return this.props.children;
+	    }
+	    return React.createElement('div', null);
+	  },
 	  render: function render() {
 	    var overlayStyle = {};
 	    if (!this.props.overlay) {
@@ -2204,7 +2211,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          React.createElement(
 	            'div',
 	            { id: this.props.id, 'data-closable': true, className: 'modal', onClick: this.stopClickPropagation },
-	            this.props.children
+	            this.renderChildren()
 	          )
 	        )
 	      )
@@ -4555,7 +4562,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (tempElement.nodeName == 'BODY') {
 	          parentElement = '';
 	        }
-	        if (typeof tempElement.getAttribute('data-closable') !== 'undefined' && tempElement.getAttribute('data-closable') !== false) {
+	        // according to the w3c. If the given attribute does not exist, the value returned will either be null or ""
+	        // and typeof null return 'object' in the standard
+	        //        if (typeof tempElement.getAttribute('data-closable') != 'undefined' && tempElement.getAttribute('data-closable') !== false) {
+	        if (tempElement.getAttribute('data-closable') != null && tempElement.getAttribute('data-closable') !== '' && tempElement.getAttribute('data-closable') !== false) {
 	          parentElement = tempElement;
 	        }
 

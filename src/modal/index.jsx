@@ -39,6 +39,13 @@ var Modal = React.createClass({
     e.preventDefault();
     e.stopPropagation();
   },
+  // unmount children after modal closed because usually we don't want to continue the state of modal page by Gogoout
+  renderChildren:function(){
+    if(this.state.open){
+      return this.props.children;
+    }
+    return <div/>;
+  },
   render: function() {
     var overlayStyle = {};
     if (!this.props.overlay) {
@@ -53,7 +60,7 @@ var Modal = React.createClass({
             animationOut={this.props.animationOut}
           >
             <div id={this.props.id} data-closable={true} className='modal' onClick={this.stopClickPropagation}>
-              {this.props.children}
+              {this.renderChildren()}
             </div>
           </Animation>
         </div>
