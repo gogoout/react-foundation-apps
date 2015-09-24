@@ -2184,6 +2184,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    e.preventDefault();
 	    e.stopPropagation();
 	  },
+	  // unmount children after modal closed because usually we don't want to continue the state of modal page by Gogoout
 	  renderChildren: function renderChildren() {
 	    if (this.state.open) {
 	      return this.props.children;
