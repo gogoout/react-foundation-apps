@@ -8,7 +8,7 @@ var Modal = React.createClass({
     return { open: false };
   },
   getDefaultProps: function () {
-    return { 
+    return {
       overlay: true,
       overlayClose: true,
       animationIn: 'fadeIn',
@@ -32,7 +32,9 @@ var Modal = React.createClass({
   hideOverlay: function (e) {
     e.preventDefault();
     if (this.props.overlayClose) {
-      this.setState({open: false});   
+      // use foundationApi so others can listen on this
+//      this.setState({open: false});
+      foundationApi.publish(this.props.id,'close');
     }
   },
   stopClickPropagation: function (e) {

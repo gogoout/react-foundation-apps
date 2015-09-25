@@ -2177,7 +2177,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  hideOverlay: function hideOverlay(e) {
 	    e.preventDefault();
 	    if (this.props.overlayClose) {
-	      this.setState({ open: false });
+	      // use foundationApi so others can listen on this
+	      //      this.setState({open: false});
+	      foundationApi.publish(this.props.id, 'close');
 	    }
 	  },
 	  stopClickPropagation: function stopClickPropagation(e) {
