@@ -38,7 +38,8 @@ var Modal = React.createClass({
     }
   },
   stopClickPropagation: function (e) {
-    e.preventDefault();
+    // remove this because will cause checkbox inside modal error By Gogoout
+//    e.preventDefault();
     e.stopPropagation();
   },
   // unmount children after modal closed because usually we don't want to continue the state of modal page by Gogoout
