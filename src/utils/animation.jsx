@@ -3,6 +3,17 @@ var React = require('react');
 var ReactTransitionEvents = require('react/lib/ReactTransitionEvents');
 var CSSCore = require('react/lib/CSSCore');
 
+
+function addClasses(node, classes) {
+	classes.replace(/\s+/g, ' ').split(' ').forEach(function (each) {
+		CSSCore.addClass(node, each);
+	})
+}
+function removeClasses(node, classes) {
+	classes.replace(/\s+/g, ' ').split(' ').forEach(function (each) {
+		CSSCore.removeClass(node, each);
+	})
+}
 var Animation = React.createClass({
 	getInitialState   : function () {
 		return {};
@@ -23,8 +34,8 @@ var Animation = React.createClass({
 		CSSCore.removeClass(node, 'ng-leave');
 		CSSCore.removeClass(node, 'ng-enter-active');
 		CSSCore.removeClass(node, 'ng-leave-active');
-		CSSCore.removeClass(node, this.props.animationIn);
-		CSSCore.removeClass(node, this.props.animationOut);
+		removeClasses(node, this.props.animationIn);
+		removeClasses(node, this.props.animationOut);
 	},
 	finishAnimation   : function () {
 		var node = this.getDOMNode();
@@ -32,6 +43,9 @@ var Animation = React.createClass({
 		CSSCore.removeClass(node, this.props.active ? '' : 'is-active');
 		this.reflow(node);
 		ReactTransitionEvents.removeEndEventListener(node, this.finishAnimation);
+		if (this.props.onEnd) {
+			this.props.onEnd(this.props.active);
+		}
 	},
 	animate           : function (animationClass, animationType) {
 		var node = this.getDOMNode();
@@ -41,13 +55,16 @@ var Animation = React.createClass({
 
 		this.reset(node);
 		node.style.transitionDuration = '';
-		CSSCore.addClass(node, animationClass);
+		addClasses(node, animationClass);
 		CSSCore.addClass(node, initClass);
 		CSSCore.addClass(node, 'is-active');
 
 		//force a "tick"
 //		this.reflow(node);
 		delete node.style.transitionDuration;
+		if (this.props.onStart) {
+			this.props.onStart(this.props.active);
+		}
 
 		window.requestAnimationFrame(()=> {
 			ReactTransitionEvents.addEndEventListener(node, this.finishAnimation);

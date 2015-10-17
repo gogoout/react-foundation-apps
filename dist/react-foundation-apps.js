@@ -2066,80 +2066,98 @@ return /******/ (function(modules) { // webpackBootstrap
 	var foundationApi = __webpack_require__(17);
 
 	var Modal = React.createClass({
-	  displayName: 'Modal',
+		displayName: 'Modal',
 
-	  getInitialState: function getInitialState() {
-	    return { open: false };
-	  },
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      overlay: true,
-	      overlayClose: true,
-	      animationIn: 'fadeIn',
-	      animationOut: 'fadeOut'
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    foundationApi.subscribe(this.props.id, (function (name, msg) {
-	      if (msg === 'open') {
-	        this.setState({ open: true });
-	      } else if (msg === 'close') {
-	        this.setState({ open: false });
-	      } else if (msg === 'toggle') {
-	        this.setState({ open: !this.state.open });
-	      }
-	    }).bind(this));
-	  },
-	  componentWillUnmount: function componentWillUnmount() {
-	    foundationApi.unsubscribe(this.props.id);
-	  },
-	  hideOverlay: function hideOverlay(e) {
-	    e.preventDefault();
-	    if (this.props.overlayClose) {
-	      // use foundationApi so others can listen on this
-	      //      this.setState({open: false});
-	      foundationApi.publish(this.props.id, 'close');
-	    }
-	  },
-	  stopClickPropagation: function stopClickPropagation(e) {
-	    // remove this because will cause checkbox inside modal error By Gogoout
-	    //    e.preventDefault();
-	    e.stopPropagation();
-	  },
-	  // unmount children after modal closed because usually we don't want to continue the state of modal page by Gogoout
-	  renderChildren: function renderChildren() {
-	    if (this.state.open) {
-	      return this.props.children;
-	    }
-	    return React.createElement('div', null);
-	  },
-	  render: function render() {
-	    var overlayStyle = {};
-	    if (!this.props.overlay) {
-	      overlayStyle.background = 'transparent';
-	    }
-	    return React.createElement(
-	      Animation,
-	      { active: this.state.open, animationIn: 'fadeIn', animationOut: 'fadeOut' },
-	      React.createElement(
-	        'div',
-	        { className: 'modal-overlay', style: overlayStyle, onClick: this.hideOverlay },
-	        React.createElement(
-	          Animation,
-	          {
-	            active: this.state.open,
-	            animationIn: this.props.animationIn,
-	            animationOut: this.props.animationOut
-	          },
-	          React.createElement(
-	            'div',
-	            { id: this.props.id, 'data-closable': true, className: 'modal', onClick: this.stopClickPropagation },
-	            this.renderChildren()
-	          )
-	        )
-	      )
-	    );
-	  }
+		getInitialState: function getInitialState() {
+			return { open: 0 };
+		},
+		getDefaultProps: function getDefaultProps() {
+			return {
+				overlay: true,
+				overlayClose: true,
+				animationIn: 'fadeIn',
+				animationOut: 'fadeOut'
+			};
+		},
+		componentDidMount: function componentDidMount() {
+			foundationApi.subscribe(this.props.id, (function (name, msg) {
+				if (msg === 'open') {
+					this.setState({ open: 2 });
+				} else if (msg === 'close') {
+					this.setState({ open: 1 });
+				} else if (msg === 'toggle') {
+					this.setState({ open: this.state.open <= 1 ? 2 : 1 });
+				}
+			}).bind(this));
+		},
+		componentWillUnmount: function componentWillUnmount() {
+			foundationApi.unsubscribe(this.props.id);
+		},
+		hideOverlay: function hideOverlay(e) {
+			e.preventDefault();
+			if (this.props.overlayClose) {
+				// use foundationApi so others can listen on this
+				//      this.setState({open: false});
+				foundationApi.publish(this.props.id, 'close');
+			}
+		},
+		stopClickPropagation: function stopClickPropagation(e) {
+			// remove this because will cause checkbox inside modal error By Gogoout
+			//    e.preventDefault();
+			e.stopPropagation();
+		},
+		overlayTransitionEnd: function overlayTransitionEnd(isActive) {
+			if (!isActive) {
+				this.setState({ open: 0 });
+				if (this.props.onHide) {
+					this.props.onHide();
+				}
+			}
+		},
+		modalTransitionEnd: function modalTransitionEnd(isActive) {
+			if (isActive) {
+				if (this.props.onShow) {
+					this.props.onShow();
+				}
+			}
+		},
+		// unmount children after modal closed because usually we don't want to continue the state of modal page by Gogoout
+		renderChildren: function renderChildren() {
+			if (this.state.open) {
+				return React.createElement(
+					'div',
+					{ id: this.props.id, 'data-closable': true, className: 'modal',
+						onClick: this.stopClickPropagation },
+					this.props.children
+				);
+			}
+			return React.createElement('div', null);
+		},
+		render: function render() {
+			var overlayStyle = {};
+			if (!this.props.overlay) {
+				overlayStyle.background = 'transparent';
+			}
+			return React.createElement(
+				Animation,
+				{ active: this.state.open > 1, animationIn: 'fadeIn', animationOut: 'delay fadeOut',
+					onEnd: this.overlayTransitionEnd },
+				React.createElement(
+					'div',
+					{ className: 'modal-overlay', style: overlayStyle, onClick: this.hideOverlay },
+					React.createElement(
+						Animation,
+						{
+							active: this.state.open > 1,
+							animationIn: this.props.animationIn,
+							animationOut: this.props.animationOut,
+							onEnd: this.modalTransitionEnd
+						},
+						this.renderChildren()
+					)
+				)
+			);
+		}
 	});
 
 	module.exports = Modal;
@@ -2155,6 +2173,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactTransitionEvents = __webpack_require__(30);
 	var CSSCore = __webpack_require__(32);
 
+	function addClasses(node, classes) {
+		classes.replace(/\s+/g, ' ').split(' ').forEach(function (each) {
+			CSSCore.addClass(node, each);
+		});
+	}
+	function removeClasses(node, classes) {
+		classes.replace(/\s+/g, ' ').split(' ').forEach(function (each) {
+			CSSCore.removeClass(node, each);
+		});
+	}
 	var Animation = React.createClass({
 		displayName: 'Animation',
 
@@ -2177,8 +2205,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			CSSCore.removeClass(node, 'ng-leave');
 			CSSCore.removeClass(node, 'ng-enter-active');
 			CSSCore.removeClass(node, 'ng-leave-active');
-			CSSCore.removeClass(node, this.props.animationIn);
-			CSSCore.removeClass(node, this.props.animationOut);
+			removeClasses(node, this.props.animationIn);
+			removeClasses(node, this.props.animationOut);
 		},
 		finishAnimation: function finishAnimation() {
 			var node = this.getDOMNode();
@@ -2186,6 +2214,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			CSSCore.removeClass(node, this.props.active ? '' : 'is-active');
 			this.reflow(node);
 			ReactTransitionEvents.removeEndEventListener(node, this.finishAnimation);
+			if (this.props.onEnd) {
+				this.props.onEnd(this.props.active);
+			}
 		},
 		animate: function animate(animationClass, animationType) {
 			var _this = this;
@@ -2196,13 +2227,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 			this.reset(node);
 			node.style.transitionDuration = '';
-			CSSCore.addClass(node, animationClass);
+			addClasses(node, animationClass);
 			CSSCore.addClass(node, initClass);
 			CSSCore.addClass(node, 'is-active');
 
 			//force a "tick"
 			//		this.reflow(node);
 			delete node.style.transitionDuration;
+			if (this.props.onStart) {
+				this.props.onStart(this.props.active);
+			}
 
 			window.requestAnimationFrame(function () {
 				ReactTransitionEvents.addEndEventListener(node, _this.finishAnimation);
