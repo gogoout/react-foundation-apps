@@ -57,16 +57,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = {
 	  Accordion: __webpack_require__(1),
 	  ActionSheet: __webpack_require__(16),
-	  Iconic: __webpack_require__(22),
-	  Interchange: __webpack_require__(24),
-	  Modal: __webpack_require__(30),
-	  Notification: __webpack_require__(35),
-	  OffCanvas: __webpack_require__(39),
-	  Panel: __webpack_require__(40),
-	  Popup: __webpack_require__(41),
-	  Tabs: __webpack_require__(43),
+	  Interchange: __webpack_require__(22),
+	  Modal: __webpack_require__(28),
+	  Notification: __webpack_require__(34),
+	  OffCanvas: __webpack_require__(38),
+	  Panel: __webpack_require__(39),
+	  Popup: __webpack_require__(40),
+	  Tabs: __webpack_require__(42),
 	  Trigger: __webpack_require__(45),
-
 	};
 
 
@@ -1588,86 +1586,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var React = __webpack_require__(2);
-	var ExecutionEnvironment = __webpack_require__(23);
-	var IconicJs = ExecutionEnvironment.canUseDOM && __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../vendor/iconic.min\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-	var cloneWithProps = __webpack_require__(3);
-
-	var Iconic = React.createClass({
-	  displayName: 'Iconic',
-
-	  inject: function inject() {
-	    var ico = IconicJs();
-	    ico.inject(this.getDOMNode());
-	  },
-	  componentDidMount: function componentDidMount() {
-	    this.inject();
-	  },
-	  componentDidUpdate: function componentDidUpdate() {
-	    this.inject();
-	  },
-	  render: function render() {
-	    return React.Children.only(this.props.children);
-	  }
-	});
-
-	module.exports = Iconic;
-
-/***/ },
-/* 23 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ExecutionEnvironment
-	 */
-
-	/*jslint evil: true */
-
-	"use strict";
-
-	var canUseDOM = !!(
-	  (typeof window !== 'undefined' &&
-	  window.document && window.document.createElement)
-	);
-
-	/**
-	 * Simple, lightweight module assisting with the detection and context of
-	 * Worker. Helps avoid circular dependencies and allows code to reason about
-	 * whether or not they are in a Worker, even if they never include the main
-	 * `ReactWorker` dependency.
-	 */
-	var ExecutionEnvironment = {
-
-	  canUseDOM: canUseDOM,
-
-	  canUseWorkers: typeof Worker !== 'undefined',
-
-	  canUseEventListeners:
-	    canUseDOM && !!(window.addEventListener || window.attachEvent),
-
-	  canUseViewport: canUseDOM && !!window.screen,
-
-	  isInWorker: !canUseDOM // For now, this is true - might change in the future.
-
-	};
-
-	module.exports = ExecutionEnvironment;
-
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(2);
-	var ResponsiveMixin = __webpack_require__(25);
+	var ResponsiveMixin = __webpack_require__(23);
 
 	var namedQueries = {
 	  // small: '(min-width: 0) and  (max-width: 640px)',
@@ -1721,12 +1640,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Interchange;
 
 /***/ },
-/* 25 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var canUseDOM = __webpack_require__(26);
-	var enquire = canUseDOM && __webpack_require__(27);
-	var json2mq = __webpack_require__(28);
+	var canUseDOM = __webpack_require__(24);
+	var enquire = canUseDOM && __webpack_require__(25);
+	var json2mq = __webpack_require__(26);
 
 	var ResponsiveMixin = {
 	  media: function (query, handler) {
@@ -1756,7 +1675,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ResponsiveMixin;
 
 /***/ },
-/* 26 */
+/* 24 */
 /***/ function(module, exports) {
 
 	var canUseDOM = !!(
@@ -1768,7 +1687,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = canUseDOM;
 
 /***/ },
-/* 27 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -2066,10 +1985,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	}));
 
 /***/ },
-/* 28 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var camel2hyphen = __webpack_require__(29);
+	var camel2hyphen = __webpack_require__(27);
 
 	var isDimension = function (feature) {
 	  var re = /[height|width]$/;
@@ -2122,7 +2041,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = json2mq;
 
 /***/ },
-/* 29 */
+/* 27 */
 /***/ function(module, exports) {
 
 	var camel2hyphen = function (str) {
@@ -2136,14 +2055,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = camel2hyphen;
 
 /***/ },
-/* 30 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
 	var cx = __webpack_require__(15);
-	var Animation = __webpack_require__(31);
+	var Animation = __webpack_require__(29);
 	var foundationApi = __webpack_require__(17);
 
 	var Modal = React.createClass({
@@ -2183,7 +2102,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  },
 	  stopClickPropagation: function stopClickPropagation(e) {
-	    e.preventDefault();
+	    // remove this because will cause checkbox inside modal error By Gogoout
+	    //    e.preventDefault();
 	    e.stopPropagation();
 	  },
 	  // unmount children after modal closed because usually we don't want to continue the state of modal page by Gogoout
@@ -2225,88 +2145,92 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Modal;
 
 /***/ },
-/* 31 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// some parts of code from react/lib/ReactCSSTransitionGroupChild.js
 	'use strict';
 
 	var React = __webpack_require__(2);
-	var ReactTransitionEvents = __webpack_require__(32);
-	var CSSCore = __webpack_require__(33);
+	var ReactTransitionEvents = __webpack_require__(30);
+	var CSSCore = __webpack_require__(32);
 	var cloneWithProps = __webpack_require__(3);
 	var cx = __webpack_require__(15);
 	var TICK = 17;
 
 	var Animation = React.createClass({
-	  displayName: 'Animation',
+		displayName: 'Animation',
 
-	  getInitialState: function getInitialState() {
-	    return {};
-	  },
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      active: false,
-	      animationIn: '',
-	      animationOut: ''
-	    };
-	  },
-	  reflow: function reflow(node) {
-	    return node.offsetWidth;
-	  },
-	  reset: function reset(node) {
-	    node.style.transitionDuration = 0;
-	    CSSCore.removeClass(node, 'ng-enter');
-	    CSSCore.removeClass(node, 'ng-leave');
-	    CSSCore.removeClass(node, 'ng-enter-active');
-	    CSSCore.removeClass(node, 'ng-leave-active');
-	    CSSCore.removeClass(node, this.props.animationIn);
-	    CSSCore.removeClass(node, this.props.animationOut);
-	  },
-	  finishAnimation: function finishAnimation() {
-	    var node = this.getDOMNode();
-	    this.reset(node);
-	    CSSCore.removeClass(node, this.props.active ? '' : 'is-active');
-	    this.reflow(node);
-	    ReactTransitionEvents.removeEndEventListener(node, this.finishAnimation);
-	  },
-	  animate: function animate(animationClass, animationType) {
-	    var node = this.getDOMNode();
-	    var initClass = 'ng-' + animationType;
-	    var activeClass = initClass + '-active';
+		getInitialState: function getInitialState() {
+			return {};
+		},
+		getDefaultProps: function getDefaultProps() {
+			return {
+				active: false,
+				animationIn: '',
+				animationOut: ''
+			};
+		},
+		reflow: function reflow(node) {
+			return node.offsetWidth;
+		},
+		reset: function reset(node) {
+			node.style.transitionDuration = 0;
+			CSSCore.removeClass(node, 'ng-enter');
+			CSSCore.removeClass(node, 'ng-leave');
+			CSSCore.removeClass(node, 'ng-enter-active');
+			CSSCore.removeClass(node, 'ng-leave-active');
+			CSSCore.removeClass(node, this.props.animationIn);
+			CSSCore.removeClass(node, this.props.animationOut);
+		},
+		finishAnimation: function finishAnimation() {
+			var node = this.getDOMNode();
+			this.reset(node);
+			CSSCore.removeClass(node, this.props.active ? '' : 'is-active');
+			this.reflow(node);
+			ReactTransitionEvents.removeEndEventListener(node, this.finishAnimation);
+		},
+		animate: function animate(animationClass, animationType) {
+			var _this = this;
 
-	    this.reset(node);
-	    CSSCore.addClass(node, animationClass);
-	    CSSCore.addClass(node, initClass);
-	    CSSCore.addClass(node, 'is-active');
+			var node = this.getDOMNode();
+			var initClass = 'ng-' + animationType;
+			var activeClass = initClass + '-active';
 
-	    //force a "tick"
-	    this.reflow(node);
+			this.reset(node);
+			node.style.transitionDuration = '';
+			CSSCore.addClass(node, animationClass);
+			CSSCore.addClass(node, initClass);
+			CSSCore.addClass(node, 'is-active');
 
-	    //activate
-	    node.style.transitionDuration = '';
-	    CSSCore.addClass(node, activeClass);
+			//force a "tick"
+			//		this.reflow(node);
+			delete node.style.transitionDuration;
 
-	    ReactTransitionEvents.addEndEventListener(node, this.finishAnimation);
-	  },
-	  componentDidUpdate: function componentDidUpdate(prevProps) {
-	    if (prevProps.active !== this.props.active) {
-	      var animationClass = this.props.active ? this.props.animationIn : this.props.animationOut;
-	      var animationType = this.props.active ? 'enter' : 'leave';
-	      this.animate(animationClass, animationType);
-	    }
-	  },
-	  render: function render() {
-	    var child = React.Children.only(this.props.children);
-	    var extraProps = {};
-	    return cloneWithProps(child, extraProps);
-	  }
+			window.requestAnimationFrame(function () {
+				ReactTransitionEvents.addEndEventListener(node, _this.finishAnimation);
+				//activate
+				CSSCore.addClass(node, activeClass);
+			});
+		},
+		componentDidUpdate: function componentDidUpdate(prevProps) {
+			if (prevProps.active !== this.props.active) {
+				var animationClass = this.props.active ? this.props.animationIn : this.props.animationOut;
+				var animationType = this.props.active ? 'enter' : 'leave';
+				this.animate(animationClass, animationType);
+			}
+		},
+		render: function render() {
+			var child = React.Children.only(this.props.children);
+			var extraProps = {};
+			return cloneWithProps(child, extraProps);
+		}
 	});
 
 	module.exports = Animation;
 
 /***/ },
-/* 32 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2322,7 +2246,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var ExecutionEnvironment = __webpack_require__(23);
+	var ExecutionEnvironment = __webpack_require__(31);
 
 	/**
 	 * EVENT_NAME_MAP is used to determine which event fired when a
@@ -2421,7 +2345,55 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 33 */
+/* 31 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ExecutionEnvironment
+	 */
+
+	/*jslint evil: true */
+
+	"use strict";
+
+	var canUseDOM = !!(
+	  (typeof window !== 'undefined' &&
+	  window.document && window.document.createElement)
+	);
+
+	/**
+	 * Simple, lightweight module assisting with the detection and context of
+	 * Worker. Helps avoid circular dependencies and allows code to reason about
+	 * whether or not they are in a Worker, even if they never include the main
+	 * `ReactWorker` dependency.
+	 */
+	var ExecutionEnvironment = {
+
+	  canUseDOM: canUseDOM,
+
+	  canUseWorkers: typeof Worker !== 'undefined',
+
+	  canUseEventListeners:
+	    canUseDOM && !!(window.addEventListener || window.attachEvent),
+
+	  canUseViewport: canUseDOM && !!window.screen,
+
+	  isInWorker: !canUseDOM // For now, this is true - might change in the future.
+
+	};
+
+	module.exports = ExecutionEnvironment;
+
+
+/***/ },
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2436,7 +2408,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @typechecks
 	 */
 
-	var invariant = __webpack_require__(34);
+	var invariant = __webpack_require__(33);
 
 	/**
 	 * The CSSCore module specifies the API (and implements most of the methods)
@@ -2535,7 +2507,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 34 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2594,18 +2566,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 35 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = {
-	  Set: __webpack_require__(36),
-	  Static: __webpack_require__(38)
+	  Set: __webpack_require__(35),
+	  Static: __webpack_require__(37)
 	};
 
 /***/ },
-/* 36 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2614,8 +2586,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(2);
 	var foundationApi = __webpack_require__(17);
-	var Notification = __webpack_require__(37);
-	var Animation = __webpack_require__(31);
+	var Notification = __webpack_require__(36);
+	var Animation = __webpack_require__(29);
 
 	var NotificationSet = React.createClass({
 	  displayName: 'NotificationSet',
@@ -2675,7 +2647,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NotificationSet;
 
 /***/ },
-/* 37 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2735,7 +2707,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Notification;
 
 /***/ },
-/* 38 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2745,8 +2717,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(2);
 	var cx = __webpack_require__(15);
 	var foundationApi = __webpack_require__(17);
-	var Animation = __webpack_require__(31);
-	var Notification = __webpack_require__(37);
+	var Animation = __webpack_require__(29);
+	var Notification = __webpack_require__(36);
 
 	var NotificationStatic = React.createClass({
 	  displayName: 'NotificationStatic',
@@ -2787,7 +2759,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NotificationStatic;
 
 /***/ },
-/* 39 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2843,14 +2815,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Offcanvas;
 
 /***/ },
-/* 40 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
 	var cx = __webpack_require__(15);
-	var Animation = __webpack_require__(31);
+	var Animation = __webpack_require__(29);
 	var foundationApi = __webpack_require__(17);
 
 	var Panel = React.createClass({
@@ -2912,16 +2884,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Panel;
 
 /***/ },
-/* 41 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(2);
 	var cx = __webpack_require__(15);
-	var ExecutionEnvironment = __webpack_require__(23);
+	var ExecutionEnvironment = __webpack_require__(31);
 	var foundationApi = __webpack_require__(17);
-	var Tether = ExecutionEnvironment.canUseDOM && __webpack_require__(42);
+	var Tether = ExecutionEnvironment.canUseDOM && __webpack_require__(41);
 
 	var Popup = React.createClass({
 	  displayName: 'Popup',
@@ -2981,7 +2953,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Popup;
 
 /***/ },
-/* 42 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! tether 0.6.5 */
@@ -4444,53 +4416,122 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 43 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var React = __webpack_require__(2);
-	var cloneWithProps = __webpack_require__(3);
+	var React = __webpack_require__(2),
+	    classNames = __webpack_require__(43);
 
 	var Tabs = React.createClass({
-	  displayName: 'Tabs',
+		displayName: 'Tabs',
 
-	  getInitialState: function getInitialState() {
-	    return {
-	      selectedTab: 0,
-	      content: null
-	    };
-	  },
-	  selectTab: function selectTab(options) {
-	    this.setState(options);
-	  },
-	  render: function render() {
-	    var children = React.Children.map(this.props.children, (function (child, index) {
-	      return cloneWithProps(child, {
-	        active: index === this.state.selectedTab,
-	        index: index,
-	        selectTab: this.selectTab
-	      });
-	    }).bind(this));
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'div',
-	        { className: 'tabs' },
-	        children
-	      ),
-	      React.createElement(
-	        'div',
-	        null,
-	        this.state.content
-	      )
-	    );
-	  }
+		getInitialState: function getInitialState() {
+			return {
+				selectedTab: 0
+			};
+		},
+		_renderTabs: function _renderTabs() {
+			var _this = this;
+
+			return React.Children.map(this.props.children, function (child, index) {
+				return React.createElement(
+					'div',
+					{ className: classNames('tab-item', { 'is-active': index === _this.state.selectedTab }),
+						onClick: _this.selectTab.bind(_this, index) },
+					child.props.title
+				);
+			});
+		},
+		_renderTabContents: function _renderTabContents() {
+			var _this2 = this;
+
+			return React.Children.map(this.props.children, function (child, index) {
+				return React.cloneElement(child, {
+					isActive: index === _this2.state.selectedTab
+				});
+			});
+		},
+		selectTab: function selectTab(index) {
+			if (this.state.selectedTab !== index) {
+				this.setState({ selectedTab: index });
+			}
+		},
+		render: function render() {
+			return React.createElement(
+				'div',
+				null,
+				React.createElement(
+					'div',
+					{ className: 'tabs' },
+					this._renderTabs()
+				),
+				React.createElement(
+					'div',
+					{ className: 'tab-contents' },
+					this._renderTabContents()
+				)
+			);
+		}
 	});
 
 	module.exports = Tabs;
 	Tabs.Tab = __webpack_require__(44);
+
+/***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2015 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+
+	(function () {
+		'use strict';
+
+		var hasOwn = {}.hasOwnProperty;
+
+		function classNames () {
+			var classes = '';
+
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+
+				var argType = typeof arg;
+
+				if (argType === 'string' || argType === 'number') {
+					classes += ' ' + arg;
+				} else if (Array.isArray(arg)) {
+					classes += ' ' + classNames.apply(null, arg);
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes += ' ' + key;
+						}
+					}
+				}
+			}
+
+			return classes.substr(1);
+		}
+
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
 
 /***/ },
 /* 44 */
@@ -4498,35 +4539,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var React = __webpack_require__(2);
-	var cx = __webpack_require__(15);
+	var React = __webpack_require__(2),
+	    classNames = __webpack_require__(43);
 
 	var Tab = React.createClass({
-	  displayName: 'Tab',
+		displayName: 'Tab',
 
-	  componentDidMount: function componentDidMount() {
-	    if (this.props.active) {
-	      this.select();
-	    }
-	  },
-	  select: function select() {
-	    var options = {
-	      selectedTab: this.props.index,
-	      content: this.props.children
-	    };
-	    this.props.selectTab(options);
-	  },
-	  render: function render() {
-	    var classes = {
-	      'tab-item': true,
-	      'is-active': this.props.active
-	    };
-	    return React.createElement(
-	      'div',
-	      { className: cx(classes), onClick: this.select },
-	      this.props.title
-	    );
-	  }
+		getInitialState: function getInitialState() {
+			return { isActive: this.props.isActive };
+		},
+		componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+			if (newProps.isActive !== this.state.isActive) {
+				this.setState({ isActive: newProps.isActive });
+			}
+		},
+		render: function render() {
+			return React.createElement(
+				'div',
+				{ className: classNames('tab-content', { 'is-active': this.state.isActive }) },
+				this.props.children
+			);
+		}
 	});
 
 	module.exports = Tab;

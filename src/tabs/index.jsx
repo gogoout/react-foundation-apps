@@ -1,31 +1,42 @@
-var React = require('react');
-var cloneWithProps = require('react/lib/cloneWithProps');
+var React = require('react'),
+	classNames = require('classnames');
 
 var Tabs = React.createClass({
-  getInitialState: function () {
-    return {
-      selectedTab: 0,
-      content: null
-    };
-  },
-  selectTab: function (options) {
-    this.setState(options);
-  },
-  render: function () {
-    var children = React.Children.map(this.props.children, function (child, index) {
-      return cloneWithProps(child, {
-        active: (index === this.state.selectedTab),
-        index: index,
-        selectTab: this.selectTab
-      });
-    }.bind(this));
-    return (
-      <div>
-        <div className='tabs'>{children}</div>
-        <div>{this.state.content}</div>
-      </div>
-    );
-  }
+	getInitialState   : function () {
+		return {
+			selectedTab: 0
+		};
+	},
+	_renderTabs       : function () {
+		return React.Children.map(this.props.children, (child, index) => {
+			return (
+				<div className = {classNames('tab-item',{'is-active': index===this.state.selectedTab})}
+				     onClick = {this.selectTab.bind(this,index)}>
+					{child.props.title}
+				</div>
+			);
+		});
+	},
+	_renderTabContents: function () {
+		return React.Children.map(this.props.children, (child, index) => {
+			return React.cloneElement(child, {
+				isActive: index === this.state.selectedTab
+			});
+		});
+	},
+	selectTab         : function (index) {
+		if (this.state.selectedTab !== index) {
+			this.setState({selectedTab: index});
+		}
+	},
+	render            : function () {
+		return (
+			<div>
+				<div className = 'tabs'>{this._renderTabs()}</div>
+				<div className = 'tab-contents'>{this._renderTabContents()}</div>
+			</div>
+		);
+	}
 });
 
 module.exports = Tabs;

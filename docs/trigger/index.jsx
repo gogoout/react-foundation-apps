@@ -1,5 +1,5 @@
  var React = require('react');
-var Highlight = require('react-highlight/optimized');
+var Highlight = require('react-highlight');
 
 var TriggersDocs = React.createClass({
   render: function () {

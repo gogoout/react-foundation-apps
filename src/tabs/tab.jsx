@@ -1,30 +1,22 @@
-var React = require('react');
-var cx = require('react/lib/cx');
+var React = require('react'),
+	classNames = require('classnames');
 
 var Tab = React.createClass({
-  componentDidMount: function () {
-    if (this.props.active) {
-      this.select();
-    }
-  },
-  select: function () {
-    var options = {
-      selectedTab: this.props.index,
-      content: this.props.children
-    };
-    this.props.selectTab(options);
-  },
-  render: function () {
-    var classes = {
-      'tab-item': true,
-      'is-active': this.props.active
-    };
-    return (
-      <div className={cx(classes)} onClick={this.select}>
-        {this.props.title}
-      </div>
-    );
-  }
+	getInitialState          : function () {
+		return {isActive: this.props.isActive};
+	},
+	componentWillReceiveProps: function (newProps) {
+		if (newProps.isActive !== this.state.isActive) {
+			this.setState({isActive: newProps.isActive});
+		}
+	},
+	render                   : function () {
+		return (
+			<div className = {classNames('tab-content',{'is-active': this.state.isActive})}>
+				{this.props.children}
+			</div>
+		);
+	}
 });
 
 module.exports = Tab;
