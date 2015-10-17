@@ -2,9 +2,6 @@
 var React = require('react');
 var ReactTransitionEvents = require('react/lib/ReactTransitionEvents');
 var CSSCore = require('react/lib/CSSCore');
-var cloneWithProps = require('react/lib/cloneWithProps');
-var cx = require('react/lib/cx');
-var TICK = 17;
 
 var Animation = React.createClass({
 	getInitialState   : function () {
@@ -67,9 +64,7 @@ var Animation = React.createClass({
 		}
 	},
 	render            : function () {
-		var child = React.Children.only(this.props.children);
-		var extraProps = {};
-		return cloneWithProps(child, extraProps);
+		return React.Children.only(this.props.children);
 	}
 });
 

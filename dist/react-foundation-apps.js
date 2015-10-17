@@ -2154,9 +2154,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(2);
 	var ReactTransitionEvents = __webpack_require__(30);
 	var CSSCore = __webpack_require__(32);
-	var cloneWithProps = __webpack_require__(3);
-	var cx = __webpack_require__(15);
-	var TICK = 17;
 
 	var Animation = React.createClass({
 		displayName: 'Animation',
@@ -2221,9 +2218,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		},
 		render: function render() {
-			var child = React.Children.only(this.props.children);
-			var extraProps = {};
-			return cloneWithProps(child, extraProps);
+			return React.Children.only(this.props.children);
 		}
 	});
 
