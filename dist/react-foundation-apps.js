@@ -2144,7 +2144,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					onEnd: this.overlayTransitionEnd },
 				React.createElement(
 					'div',
-					{ className: 'modal-overlay', style: overlayStyle, onClick: this.hideOverlay },
+					{ id: this.props.id + '-overlay', className: 'modal-overlay', style: overlayStyle, onClick: this.hideOverlay },
 					React.createElement(
 						Animation,
 						{

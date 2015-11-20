@@ -77,7 +77,7 @@ var Modal = React.createClass({
 		return (
 			<Animation active = {this.state.open>1} animationIn = "fadeIn" animationOut = "delay fadeOut"
 			           onEnd = {this.overlayTransitionEnd}>
-				<div className = 'modal-overlay' style = {overlayStyle} onClick = {this.hideOverlay}>
+				<div id={`${this.props.id}-overlay`} className = 'modal-overlay' style = {overlayStyle} onClick = {this.hideOverlay}>
 					<Animation
 						active = {this.state.open>1}
 						animationIn = {this.props.animationIn}
