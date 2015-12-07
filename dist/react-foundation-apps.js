@@ -2106,12 +2106,21 @@ return /******/ (function(modules) { // webpackBootstrap
 			//    e.preventDefault();
 			e.stopPropagation();
 		},
-		overlayTransitionEnd: function overlayTransitionEnd(isActive) {
-			if (!isActive) {
-				this.setState({ open: 0 });
+		onShow: function onShow() {
+			this.hideCount = 2;
+		},
+		onHide: function onHide() {
+			this.hideCount--;
+			if (this.hideCount <= 0) {
 				if (this.props.onHide) {
 					this.props.onHide();
 				}
+			}
+		},
+		overlayTransitionEnd: function overlayTransitionEnd(isActive) {
+			if (!isActive) {
+				this.setState({ open: 0 });
+				this.onHide();
 			}
 		},
 		modalTransitionEnd: function modalTransitionEnd(isActive) {
@@ -2119,6 +2128,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (this.props.onShow) {
 					this.props.onShow();
 				}
+			} else {
+				this.onHide();
 			}
 		},
 		// unmount children after modal closed because usually we don't want to continue the state of modal page by Gogoout
@@ -2144,7 +2155,8 @@ return /******/ (function(modules) { // webpackBootstrap
 					onEnd: this.overlayTransitionEnd },
 				React.createElement(
 					'div',
-					{ id: this.props.id + '-overlay', className: 'modal-overlay', style: overlayStyle, onClick: this.hideOverlay },
+					{ id: this.props.id + '-overlay', className: 'modal-overlay', style: overlayStyle,
+						onClick: this.hideOverlay },
 					React.createElement(
 						Animation,
 						{

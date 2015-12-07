@@ -16,6 +16,7 @@ var Modal = React.createClass({
 		};
 	},
 	componentDidMount   : function () {
+		this.hideCount = 2;
 		foundationApi.subscribe(this.props.id, function (name, msg) {
 			if (msg === 'open') {
 				this.setState({open: 2});
@@ -44,12 +45,18 @@ var Modal = React.createClass({
 //    e.preventDefault();
 		e.stopPropagation();
 	},
-	overlayTransitionEnd: function (isActive) {
-		if (!isActive) {
-			this.setState({open: 0});
+	onHide              : function () {
+		this.hideCount--;
+		if (this.hideCount <= 0) {
 			if (this.props.onHide) {
 				this.props.onHide();
 			}
+		}
+	},
+	overlayTransitionEnd: function (isActive) {
+		if (!isActive) {
+			this.setState({open: 0});
+			this.onHide();
 		}
 	},
 	modalTransitionEnd  : function (isActive) {
@@ -57,6 +64,9 @@ var Modal = React.createClass({
 			if (this.props.onShow) {
 				this.props.onShow();
 			}
+		}
+		else {
+			this.onHide();
 		}
 	},
 	// unmount children after modal closed because usually we don't want to continue the state of modal page by Gogoout
@@ -77,7 +87,8 @@ var Modal = React.createClass({
 		return (
 			<Animation active = {this.state.open>1} animationIn = "fadeIn" animationOut = "delay fadeOut"
 			           onEnd = {this.overlayTransitionEnd}>
-				<div id={`${this.props.id}-overlay`} className = 'modal-overlay' style = {overlayStyle} onClick = {this.hideOverlay}>
+				<div id = {`${this.props.id}-overlay`} className = 'modal-overlay' style = {overlayStyle}
+				     onClick = {this.hideOverlay}>
 					<Animation
 						active = {this.state.open>1}
 						animationIn = {this.props.animationIn}
@@ -89,7 +100,7 @@ var Modal = React.createClass({
 				</div>
 			</Animation >
 		);
-	},
+	}
 });
 
 module.exports = Modal;
