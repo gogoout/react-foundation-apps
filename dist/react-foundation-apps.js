@@ -2080,6 +2080,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			};
 		},
 		componentDidMount: function componentDidMount() {
+			this.hideCount = 2;
 			foundationApi.subscribe(this.props.id, (function (name, msg) {
 				if (msg === 'open') {
 					this.setState({ open: 2 });
@@ -2105,9 +2106,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			// remove this because will cause checkbox inside modal error By Gogoout
 			//    e.preventDefault();
 			e.stopPropagation();
-		},
-		onShow: function onShow() {
-			this.hideCount = 2;
 		},
 		onHide: function onHide() {
 			this.hideCount--;
