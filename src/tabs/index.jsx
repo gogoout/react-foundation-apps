@@ -11,7 +11,7 @@ var Tabs = React.createClass({
 		return React.Children.map(this.props.children, (child, index) => {
 			return (
 				<div className = {classNames('tab-item',{'is-active': index===this.state.selectedTab})}
-				     onClick = {this.selectTab.bind(this,index)}>
+				     onClick = {this.selectTab.bind(this, index, child.props.onSelect)}>
 					{child.props.title}
 				</div>
 			);
@@ -24,9 +24,13 @@ var Tabs = React.createClass({
 			});
 		});
 	},
-	selectTab         : function (index) {
+	selectTab         : function (index,onSelect) {
 		if (this.state.selectedTab !== index) {
-			this.setState({selectedTab: index});
+			this.setState({selectedTab: index},function(){
+				if(onSelect){
+					onSelect();
+				}
+			});
 		}
 	},
 	render            : function () {

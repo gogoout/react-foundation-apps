@@ -4478,7 +4478,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				return React.createElement(
 					'div',
 					{ className: classNames('tab-item', { 'is-active': index === _this.state.selectedTab }),
-						onClick: _this.selectTab.bind(_this, index) },
+						onClick: _this.selectTab.bind(_this, index, child.props.onSelect) },
 					child.props.title
 				);
 			});
@@ -4492,9 +4492,13 @@ return /******/ (function(modules) { // webpackBootstrap
 				});
 			});
 		},
-		selectTab: function selectTab(index) {
+		selectTab: function selectTab(index, onSelect) {
 			if (this.state.selectedTab !== index) {
-				this.setState({ selectedTab: index });
+				this.setState({ selectedTab: index }, function () {
+					if (onSelect) {
+						onSelect();
+					}
+				});
 			}
 		},
 		render: function render() {
